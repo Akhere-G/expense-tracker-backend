@@ -41,6 +41,12 @@ const UserType = new GraphQLObjectType({
     firstName: { type: GraphQLString },
     lastName: { type: GraphQLString },
     email: { type: GraphQLString },
+    transactions: { 
+      type: GraphQLList(TransactionType),
+    resolve(parent, args){
+      return transactions.filter( t => t.ownerID === parent.id)
+    }
+  }
   }),
 });
 
