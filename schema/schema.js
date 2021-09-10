@@ -91,6 +91,12 @@ const RootQuery = new GraphQLObjectType({
         return users.find((u) => u.id === args.id);
       },
     },
+    users: {
+      type: GraphQLList(UserType),
+      resolve(parent, args) {
+        return users;
+      },
+    },
   },
 });
 
