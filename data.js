@@ -8,8 +8,10 @@ const Category = {
   Phone: "Phone",
   Clothes: "Clothes",
   Invoice: "Invoice",
-  Gifts: "Gift",
+  Gifts: "Gifts",
 };
+
+const getDate = (date) => new Date(date);
 
 const transactions = [
   {
@@ -18,7 +20,7 @@ const transactions = [
     type: "expense",
     description: "New Jeans",
     category: Category.Clothes,
-    date: new Date("2021-08-01").getTime(),
+    date: getDate("2021-08-01"),
   },
   {
     id: "2",
@@ -26,7 +28,7 @@ const transactions = [
     type: "income",
     description: "Birthday gift",
     category: Category.Gifts,
-    date: new Date("2021-08-05").getTime(),
+    date: getDate("2021-08-05"),
   },
   {
     id: "3",
@@ -34,7 +36,7 @@ const transactions = [
     type: "expense",
     description: "Shopping",
     category: Category.Groceries,
-    date: "2021-08-10",
+    date: getDate("2021-08-10"),
   },
   {
     id: "4",
@@ -42,7 +44,7 @@ const transactions = [
     type: "income",
     description: "Work payment",
     category: Category.Invoice,
-    date: new Date("2021-08-12").getTime(),
+    date: getDate("2021-08-12"),
   },
   {
     id: "5",
@@ -50,7 +52,7 @@ const transactions = [
     type: "expense",
     description: "New Headphones",
     category: Category.Misc,
-    date: new Date("2021-08-12").getTime(),
+    date: getDate("2021-08-12"),
   },
   {
     id: "6",
@@ -58,7 +60,7 @@ const transactions = [
     type: "expense",
     description: "Phone bill",
     category: Category.Phone,
-    date: new Date("2021-08-15").getTime(),
+    date: getDate("2021-08-15"),
   },
   {
     id: "7",
@@ -66,7 +68,7 @@ const transactions = [
     type: "expense",
     description: "Rent came",
     category: Category.Rent,
-    date: new Date("2021-08-18").getTime(),
+    date: getDate("2021-08-18"),
   },
   {
     id: "8",
@@ -74,7 +76,7 @@ const transactions = [
     type: "expense",
     description: "BBQ at the park",
     category: Category.Social,
-    date: new Date("2021-08-19").getTime(),
+    date: getDate("2021-08-19"),
   },
   {
     id: "9",
@@ -82,7 +84,7 @@ const transactions = [
     type: "expense",
     description: "Tube money",
     category: Category.Travel,
-    date: new Date("2021-08-22").getTime(),
+    date: getDate("2021-08-22"),
   },
   {
     id: "10",
@@ -90,7 +92,7 @@ const transactions = [
     type: "expense",
     description: "Water and gas bill",
     category: Category.Utilities,
-    date: new Date("2021-08-26").getTime(),
+    date: getDate("2021-08-26"),
   },
 ];
 

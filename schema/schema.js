@@ -1,7 +1,7 @@
 const graphql = require("graphql");
 const { GraphQLDate } = require("graphql-iso-date");
 
-const { transactions } = require("../data");
+const { transactions, Category } = require("../data");
 
 const {
   GraphQLObjectType,
@@ -15,25 +15,20 @@ const {
 const Type = new GraphQLEnumType({
   name: "type",
   values: {
-    invoice: { value: "invoice" },
+    invoice: { value: "income" },
     expense: { value: "expense" },
   },
 });
 
+const mapCategoriesToType = () =>
+  Object.entries(Category).reduce((acc, curr) => {
+    acc[curr[0]] = { value: curr[1] };
+    return acc;
+  }, {});
+
 const CategoryType = new GraphQLEnumType({
   name: "Category",
-  values: {
-    Mis: { value: "Misc" },
-    Groceries: { value: "Groceries" },
-    Travel: { value: "Travel" },
-    Social: { value: "Social" },
-    Rent: { value: "Rent" },
-    Utilities: { value: "Utilities" },
-    Phone: { value: "Phone" },
-    Clothes: { value: "Clothes" },
-    Invoice: { value: "Invoice" },
-    Gifts: { value: "Gift" },
-  },
+  values: mapCategoriesToType(),
 });
 
 const TransactionType = new GraphQLObjectType({
@@ -55,8 +50,13 @@ const RootQuery = new GraphQLObjectType({
       type: TransactionType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        console.log("in resolve", parent, args);
         return transactions.find((t) => t.id === args.id);
+      },
+    },
+    transactions: {
+      type: TransactionType,
+      resolve(parent, args) {
+        return transactions;
       },
     },
   },
