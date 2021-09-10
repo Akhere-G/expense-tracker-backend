@@ -10,6 +10,7 @@ const {
   GraphQLFloat,
   GraphQLEnumType,
   GraphQLSchema,
+  GraphQLList,
 } = graphql;
 
 const Type = new GraphQLEnumType({
@@ -54,7 +55,7 @@ const RootQuery = new GraphQLObjectType({
       },
     },
     transactions: {
-      type: TransactionType,
+      type: GraphQLList(TransactionType),
       resolve(parent, args) {
         return transactions;
       },
