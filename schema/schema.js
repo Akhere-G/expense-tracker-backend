@@ -1,7 +1,7 @@
 const graphql = require("graphql");
 const { GraphQLDate } = require("graphql-iso-date");
 
-const { transactions, Category } = require("../data");
+const { transactions, Category, users } = require("../data");
 
 const {
   GraphQLObjectType,
@@ -11,6 +11,7 @@ const {
   GraphQLEnumType,
   GraphQLSchema,
   GraphQLList,
+  GraphQLBoolean,
 } = graphql;
 
 const Type = new GraphQLEnumType({
@@ -32,6 +33,17 @@ const CategoryType = new GraphQLEnumType({
   values: mapCategoriesToType(),
 });
 
+const UserType = new GraphQLObjectType({
+  name: "User",
+  fields: () => ({
+    id: { type: GraphQLID },
+    isGoogle: { type: GraphQLBoolean },
+    firstName: { type: GraphQLString },
+    lastName: { type: GraphQLString },
+    email: { type: GraphQLString },
+  }),
+});
+
 const TransactionType = new GraphQLObjectType({
   name: "Transaction",
   fields: () => ({
@@ -41,6 +53,12 @@ const TransactionType = new GraphQLObjectType({
     category: { type: CategoryType },
     description: { type: GraphQLString },
     date: { type: GraphQLDate },
+    owner: { 
+      type: UserType,
+      resolve(parent, args){
+        return users.find(u => u.id === parent.ownerID )
+      }
+    },
   }),
 });
 
@@ -58,6 +76,13 @@ const RootQuery = new GraphQLObjectType({
       type: GraphQLList(TransactionType),
       resolve(parent, args) {
         return transactions;
+      },
+    },
+    user: {
+      type: UserType,
+      args: { id: { type: GraphQLID } },
+      resolve(parent, args) {
+        return users.find((u) => u.id === args.id);
       },
     },
   },
