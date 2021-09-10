@@ -41,12 +41,12 @@ const UserType = new GraphQLObjectType({
     firstName: { type: GraphQLString },
     lastName: { type: GraphQLString },
     email: { type: GraphQLString },
-    transactions: { 
+    transactions: {
       type: GraphQLList(TransactionType),
-    resolve(parent, args){
-      return transactions.filter( t => t.ownerID === parent.id)
-    }
-  }
+      resolve(parent, args) {
+        return transactions.filter((t) => t.ownerID === parent.id);
+      },
+    },
   }),
 });
 
@@ -59,11 +59,11 @@ const TransactionType = new GraphQLObjectType({
     category: { type: CategoryType },
     description: { type: GraphQLString },
     date: { type: GraphQLDate },
-    owner: { 
+    owner: {
       type: UserType,
-      resolve(parent, args){
-        return users.find(u => u.id === parent.ownerID )
-      }
+      resolve(parent, args) {
+        return users.find((u) => u.id === parent.ownerID);
+      },
     },
   }),
 });
