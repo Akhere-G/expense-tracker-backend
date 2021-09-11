@@ -1,16 +1,17 @@
 const mongoose = require("mongoose");
-const { Category } = require("../data");
+const { Category, Type } = require("../data");
 
 const transactionSchema = mongoose.Schema({
-  amount: Number,
-  type: { type: String, default: "expense", enum: ["expense", "income"] },
+  amount: { type: Number, required: true },
+  type: { type: String, required: true, enum: Type },
   category: {
     type: String,
-    default: "none",
+    required: true,
     enum: Object.values(Category),
   },
-  description: { type: String, default: "" },
-  date: Date,
+  description: { type: String, required: true },
+  date: { type: Date, required: true },
+  ownerId: { type: String, required: true },
 });
 
 const Transaction =

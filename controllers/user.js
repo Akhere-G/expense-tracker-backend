@@ -1,20 +1,20 @@
 const User = require("../models/user");
 const yup = require("yup");
-const bcrypt = require("bycrypt");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const { Category, Type } = require("../data");
 
 const userSchema = new yup.ObjectSchema({
-  isGoogle: yup.boolean().required(),
-  firstName: yup.string().required().max(30),
-  lastName: yup.string().required().max(30),
-  email: yup.string().required().max(30).email(),
-  password: yup.string().required().max(30).min(6),
+  lastName: yup.string().trim().max(30).required(),
+  firstName: yup.string().trim().max(30).required(),
+  email: yup.string().trim().max(30).email("email is invalid").required(),
   confirmPassword: yup
     .string()
-    .required()
-    .oneOf([yup.ref("password"), null], "Passwords do not match."),
+    .trim()
+    .oneOf([yup.ref("password")], "passwords do not match.")
+    .required(),
+  password: yup.string().trim().max(30).min(6).required(),
 });
 
 const login = async (req, res) => {
@@ -84,7 +84,7 @@ const register = async (req, res) => {
 
     res.status(200).json({ result, token });
   } catch (err) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: err.message });
   }
 };
 
