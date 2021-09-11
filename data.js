@@ -11,6 +11,8 @@ const Category = {
   Gifts: "Gifts",
 };
 
+const Type = ["income", "expense"];
+
 const getDate = (date) => new Date(date);
 
 const transactions = [
@@ -129,4 +131,4 @@ const users = [
     email: "Ade@example.com",
   },
 ];
-module.exports = { transactions, Category, users };
+module.exports = { transactions, Category, Type, users };
