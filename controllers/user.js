@@ -20,13 +20,23 @@ const userSchema = new yup.ObjectSchema({
 const login = async (req, res) => {
   const { email, password } = req.body;
 
+  if (!email) {
+    return res.status(400).json({ message: "Email is missing" });
+  }
+
+  if (!password) {
+    return res.status(400).json({ message: "Password is missing" });
+  }
   try {
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ email: email.toLowerCase() });
     if (!existingUser) {
       return res.status(404).json({ message: "User doesn't exist." });
     }
 
-    const isPasswordCorrect = await bcrypt.compare(password, existingUser);
+    const isPasswordCorrect = await bcrypt.compare(
+      password,
+      existingUser.password
+    );
 
     if (!isPasswordCorrect) {
       return res.status(400).json({ message: "Invalid credentials" });
@@ -41,9 +51,15 @@ const login = async (req, res) => {
       { expiresIn: "1h" }
     );
 
-    res.status(200).json({ result: existingUser, token });
+    const user = {
+      firstName: existingUser.firstName,
+      lastName: existingUser.lastName,
+      email: existingUser.email,
+      _id: existingUser._id,
+    };
+    res.status(200).json({ user, token });
   } catch (err) {
-    res.status(500).json({ message: err });
+    res.status(500).json({ message: err?.message || JSON.stringify(err) });
   }
 };
 
@@ -51,14 +67,14 @@ const register = async (req, res) => {
   const { email, password, confirmPassword, firstName, lastName } = req.body;
 
   try {
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ email: email.toLowerCase() });
 
     if (existingUser) {
       return res.status(400).json({ message: "User already exists" });
     }
 
     const userData = {
-      email,
+      email: email.toLowerCase(),
       password,
       confirmPassword,
       firstName,
@@ -84,7 +100,7 @@ const register = async (req, res) => {
 
     res.status(200).json({ result, token });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: err?.message || JSON.stringify(err) });
   }
 };
 
