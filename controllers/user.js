@@ -21,11 +21,11 @@ const login = async (req, res) => {
   const { email, password } = req.body;
 
   if (!email) {
-    return res.status(400).json({ message: "Email is missing" });
+    return res.status(400).json({ message: "Email is missing." });
   }
 
   if (!password) {
-    return res.status(400).json({ message: "Password is missing" });
+    return res.status(400).json({ message: "Password is missing." });
   }
   try {
     const existingUser = await User.findOne({ email: email.toLowerCase() });
@@ -39,7 +39,7 @@ const login = async (req, res) => {
     );
 
     if (!isPasswordCorrect) {
-      return res.status(400).json({ message: "Invalid credentials" });
+      return res.status(400).json({ message: "Invalid credentials." });
     }
 
     const token = jwt.sign(
@@ -70,7 +70,7 @@ const register = async (req, res) => {
     const existingUser = await User.findOne({ email: email.toLowerCase() });
 
     if (existingUser) {
-      return res.status(400).json({ message: "User already exists" });
+      return res.status(400).json({ message: "User already exists." });
     }
 
     const userData = {
