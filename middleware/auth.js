@@ -3,7 +3,7 @@ const { OAuth2Client } = require("google-auth-library");
 
 const client = new OAuth2Client(process.env.CLIENT_SECRET);
 
-const auth = (req, res, next) => {
+const auth = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
     const isCustomAuth = token.length < 500;
