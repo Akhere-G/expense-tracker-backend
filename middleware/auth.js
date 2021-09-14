@@ -1,4 +1,7 @@
 const jwt = require("jsonwebtoken");
+const { OAuth2Client } = require("google-auth-library");
+
+const client = new OAuth2Client(process.env.CLIENT_SECRET);
 
 const auth = (req, res, next) => {
   try {
@@ -14,7 +17,14 @@ const auth = (req, res, next) => {
     } else {
       decodedData = jwt.decode(token);
 
-      req.userId = decodedData?.sub;
+      const ticket = await client.verifyIdToken({
+        idToken: token,
+        audience: process.env.CLIENT_SECRET,
+      });
+
+      const payload = ticket.getPayload();
+
+      req.userId = payload.sub;
     }
     next();
   } catch (err) {
