@@ -87,7 +87,7 @@ const register = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    const result = await User.create({
+    const user = await User.create({
       email,
       firstName,
       lastName,
@@ -96,16 +96,16 @@ const register = async (req, res) => {
 
     const token = jwt.sign(
       {
-        email: result.email,
-        id: result._id,
-        firstName: result.firstName,
-        lastName: result.lastName,
+        email: user.email,
+        id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
       },
       process.env.SECRET_KEY,
       { expiresIn: "1h" }
     );
 
-    res.status(200).json({ result, token });
+    res.status(200).json({ user, token });
   } catch (err) {
     res.status(500).json({ message: err?.message || JSON.stringify(err) });
   }
