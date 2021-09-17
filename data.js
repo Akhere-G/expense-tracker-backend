@@ -17,7 +17,7 @@ const getDate = (date) => new Date(date);
 
 const transactions = [
   {
-    id: "1",
+    _id: "1",
     amount: 50,
     type: "expense",
     description: "New Jeans",
@@ -26,7 +26,7 @@ const transactions = [
     ownerId: "u1",
   },
   {
-    id: "2",
+    _id: "2",
     amount: 10,
     type: "income",
     description: "Birthday gift",
@@ -35,7 +35,7 @@ const transactions = [
     ownerId: "u1",
   },
   {
-    id: "3",
+    _id: "3",
     amount: 15,
     type: "expense",
     description: "Shopping",
@@ -44,7 +44,7 @@ const transactions = [
     ownerId: "u1",
   },
   {
-    id: "4",
+    _id: "4",
     amount: 400,
     type: "income",
     description: "Work payment",
@@ -53,7 +53,7 @@ const transactions = [
     ownerId: "u3",
   },
   {
-    id: "5",
+    _id: "5",
     amount: 10,
     type: "expense",
     description: "New Headphones",
@@ -62,7 +62,7 @@ const transactions = [
     ownerId: "u2",
   },
   {
-    id: "6",
+    _id: "6",
     amount: 40,
     type: "expense",
     description: "Phone bill",
@@ -71,7 +71,7 @@ const transactions = [
     ownerId: "u3",
   },
   {
-    id: "7",
+    _id: "7",
     amount: 100,
     type: "expense",
     description: "Rent came",
@@ -80,7 +80,7 @@ const transactions = [
     ownerId: "u3",
   },
   {
-    id: "8",
+    _id: "8",
     amount: 40,
     type: "expense",
     description: "BBQ at the park",
@@ -89,7 +89,7 @@ const transactions = [
     ownerId: "u2",
   },
   {
-    id: "9",
+    _id: "9",
     amount: 70,
     type: "expense",
     description: "Tube money",
@@ -98,7 +98,7 @@ const transactions = [
     ownerId: "u2",
   },
   {
-    id: "10",
+    _id: "10",
     amount: 10,
     type: "expense",
     description: "Water and gas bill",
@@ -110,19 +110,19 @@ const transactions = [
 
 const users = [
   {
-    id: "u1",
+    _id: "u1",
     firstName: "John",
     lastName: "Smith",
     email: "example@example.com",
   },
   {
-    id: "u2",
+    _id: "u2",
     firstName: "Sarah",
     lastName: "Lee",
     email: "fun@example.com",
   },
   {
-    id: "u3",
+    _id: "u3",
     firstName: "Ade",
     lastName: "Johnson",
     email: "Ade@example.com",

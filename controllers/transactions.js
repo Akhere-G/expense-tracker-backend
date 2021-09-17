@@ -39,9 +39,9 @@ module.exports.createTransaction = async (req, res) => {
 
     const newTransaction = new Transaction({ ...transactionData, ownerId });
 
-    const json = await newTransaction.save();
+    const transaction = await newTransaction.save();
 
-    res.status(201).json({ result: json });
+    res.status(201).json({ transaction });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
