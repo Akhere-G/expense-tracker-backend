@@ -57,13 +57,13 @@ module.exports.updateTransaction = async (req, res) => {
 
     await transactionSchema.validate(transactionData);
 
-    const result = await Transaction.findByIdAndUpdate(id, transactionData);
+    const transaction = await Transaction.findByIdAndUpdate(id, transactionData);
 
-    if (!result) {
+    if (!transaction) {
       return res.status(404).json({ message: `No transaction with id ${id}` });
     }
 
-    res.status(201).json({ result });
+    res.status(201).json({ transaction });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -73,12 +73,12 @@ module.exports.deleteTransaction = async (req, res) => {
   try {
     const id = req.params.id;
 
-    const result = await Transaction.findByIdAndDelete(id);
+    const transaction = await Transaction.findByIdAndDelete(id);
 
-    if (!result) {
+    if (!transaction) {
       return res.status(404).json({ message: `No transaction with id ${id}` });
     }
-    res.status(200).json({ result });
+    res.status(200).json({ transaction });
   } catch (err) {
     res.status(400).json(err);
   }
