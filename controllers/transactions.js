@@ -63,7 +63,7 @@ module.exports.updateTransaction = async (req, res) => {
       return res.status(404).json({ message: `No transaction with id ${id}` });
     }
 
-    res.status(201).json({ transaction });
+    res.status(201).json({ transaction: {...transactionData, _id: id }  });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
