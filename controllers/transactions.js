@@ -1,6 +1,5 @@
 const Transaction = require("../models/transaction");
 const yup = require("yup");
-const mongoose = require("mongoose");
 
 const { Category, Type } = require("../data");
 
