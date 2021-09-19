@@ -20,10 +20,10 @@ const CONNECTION_URL = process.env.CONNECTION_URL;
 
 const PORT = process.env.PORT || 5000;
 
-app.use("/", (req, res) => res.send("Welcome!"))
-
 app.use("/api/auth", authRoutes);
 app.use("/api/transactions", auth, transactionRoutes);
+
+app.use("/", (req, res) => res.send("Welcome to the expense tracker api!"))
 
 mongoose
   .connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
