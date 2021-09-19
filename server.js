@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const path = require("path")
 
 const transactionRoutes = require("./routes/transactions");
 const authRoutes = require("./routes/auth");
@@ -18,6 +19,8 @@ app.use(cors());
 const CONNECTION_URL = process.env.CONNECTION_URL;
 
 const PORT = process.env.PORT || 5000;
+
+app.use("/", (req, res) => res.send("Welcome!"))
 
 app.use("/api/auth", authRoutes);
 app.use("/api/transactions", auth, transactionRoutes);
