@@ -1,12 +1,12 @@
 const Transaction = require("../models/transaction");
 const yup = require("yup");
 
-const { Category, Type } = require("../data");
+const { Type } = require("../data");
 
 const transactionSchema = new yup.ObjectSchema({
   date: yup.date().required(),
-  description: yup.string().max(30).required(),
-  category: yup.string().required().oneOf(Object.values(Category)),
+  description: yup.string().trim().max(30).required(),
+  category: yup.string().trim().required(),
   type: yup.string().required().oneOf(Type),
   amount: yup.number().required().moreThan(0),
 });
@@ -56,13 +56,16 @@ module.exports.updateTransaction = async (req, res) => {
 
     await transactionSchema.validate(transactionData);
 
-    const transaction = await Transaction.findByIdAndUpdate(id, transactionData);
+    const transaction = await Transaction.findByIdAndUpdate(
+      id,
+      transactionData
+    );
 
     if (!transaction) {
       return res.status(404).json({ message: `No transaction with id ${id}` });
     }
 
-    res.status(201).json({ transaction: {...transactionData, _id: id }  });
+    res.status(201).json({ transaction: { ...transactionData, _id: id } });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
