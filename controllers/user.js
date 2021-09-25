@@ -3,8 +3,6 @@ const yup = require("yup");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const { Category, Type } = require("../data");
-
 const userSchema = new yup.ObjectSchema({
   lastName: yup.string().trim().max(30).required(),
   firstName: yup.string().trim().max(30).required(),

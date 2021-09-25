@@ -1,7 +1,7 @@
 const Transaction = require("../models/transaction");
 const yup = require("yup");
 
-const { Type } = require("../data");
+const Type = ["income", "expense"];
 
 const transactionSchema = new yup.ObjectSchema({
   date: yup.date().required(),

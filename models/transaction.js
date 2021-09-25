@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const { Type } = require("../data");
+
+const Type = ["income", "expense"];
 
 const transactionSchema = mongoose.Schema({
   amount: { type: Number, required: true },
